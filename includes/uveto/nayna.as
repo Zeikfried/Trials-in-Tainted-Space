@@ -91,32 +91,32 @@ public function upstairsGeoSurveyBonus():Boolean
 {
 	naynaShutterUpdate();
 	//CLOSED!
-	if(flags["SHUTTER_STATUS"] == 1) output("The top of the geological survey is currently a dim, barren place. Shutters cover every inch of the glass observation windows, protecting you from the surging storms outside but blanketing the interior in shadow. A few glow panels struggle to illuminate the spacious deck, bolstered by blinking lights on dozens of consoles, but no matter how hard they try, they cannot dispel the creeping sense of twilight wrapping around your shoulders.");
+	if(flags["SHUTTER_STATUS"] == 1) output("The top of the geological survey is currently a dim, barren place. Shutters cover every inch of the glass observation windows, protecting you from the surging storms outside but blanketing the interior in shadow. A few glow panels struggle to illuminate the spacious deck, bolstered by blinking lights on dozens of consoles, but they cannot dispel the creeping sense of twilight.");
 	//SUNNY
 	else if(flags["SHUTTER_STATUS"] == 0)
 	{
 		//Day - Sunny
-		if(hours >= 6 && hours < 20) output("With all the protective shutters opened, the observation deck of the geological survey is surprisingly warm and cheery. Golden rays of sunlight bathe everything in amber warmth, reflecting and re-reflecting against the glass to raise the local temperature to something that could be considered balmy. Blinking, buzzing consoles have been set up in a small ring near the center, happily churning away at their tasks.");
+		if(hours >= 6 && hours < 20) output("With the protective shutters opened, the geological survey's observation deck is surprisingly warm and cheery. Rays of sunlight bathe everything in warmth, reflecting and re-reflecting against the glass to raise the local temperature to something that could be considered balmy. Blinking, buzzing consoles have been set up in a small ring near the center, cheerfully working away at their tasks.");
 		//Night Clear
-		else output("The roof of the geological survey’s observation deck may hinder its view of the stars somewhat, but the reinforced glass panels that make up every wall more than make up for it. You can see hundreds upon hundreds of stars, a reddish-purple nebula, and even Uveto proper, this moon’s gas giant of a host. Whirring lazily, the computers set up in the center of the room seem almost determined to ignore the magnificent view as they march through the endless streams of data from the survey’s sensors. Their loss.");
+		else output("The roof of the geological survey’s observation deck may hinder your view somewhat, but the reinforced glass panels that make up every wall more than compensate. You can see a reddish-purple nebula, hundreds upon hundreds of stars, and even Uveto proper, the moon’s gas giant. Whirring lazily, the computers set up in the center of the room seem almost determined to ignore the magnificent view as they march through the endless streams of data from the survey’s sensors. Their loss.");
 	}
 	//CLOUD
 	else
 	{
 		//Day Cloud
-		if(hours >= 6 && hours < 20) output("With all the protective shutters opened, the observation deck seems almost daringly, brazenly exposed to slate gray skies of Uveto. Lightning sometimes dances between the clouds, lighting the room in bursts of garish yellow before fading back into ominous gray-blue. A few consoles resolutely blink as they stubbornly chew through scientific data, ignorant of the danger that exists an inch beyond the glass.");
+		if(hours >= 6 && hours < 20) output("With all the protective shutters opened, the observation deck seems brazenly exposed to the slate-gray skies of Uveto. Lightning sometimes dances between the clouds, illuminating the room in bursts of garish white before fading back into the ominous gray. A few consoles blink as they stubbornly chew through scientific data, ignorant of the danger that exists an inch beyond the glass.");
 		//Night Overcast
-		else output("Despite the overhead light panels and the blinking status lights of dozens of computers, the observation deck of Uveto VII’s geological survey feels incontrovertibly gloomy. At least when you’re out in the black of space, you have stars and nebulas to take in, but with an overcast sky, there is nothing surrounding you but dim grays and black, an inky void of ice-cold death.");
+		else output("Despite the overhead light panels and the blinking status lights of dozens of computers, the observation deck of Uveto VII’s geological survey feels incontrovertibly gloomy. At least when you’re out in the black of space, you have stars and nebulas to take in, but with an overcast sky, there is nothing surrounding you but dim gray, an inky, ice-cold void.");
 	}
 	//New functions:
 	//First time bonusText!
 	if(flags["MET_NAYNA"] == undefined)
 	{
 		output("\n\nA lone scientist seems to have claimed this place for her own, ");
-		if(naynaViewNice()) output("dismal");
+		if(!naynaViewNice()) output("dismal");
 		else output("amazing");
-		output(" view and all. She’s a short, chubby little thing with floppy bunny ears and an animalistic nose that quivers with every breath she takes. Presently, she’s pacing back and forth, looking over an incomprehensible projection from her Codex and as completely unaware of your presence as someone could possibly be.");
-		output("\n\nYour Codex seems to indicate that she’s a laquine, though she’s much shorter than any you’ve ever seen.");
+		output(" view and all. She’s a short, chubby little thing with floppy bunny ears and an animalistic nose that quivers with every breath she takes. Presently, she’s pacing back and forth, looking over an incomprehensible projection from her data slate and as completely unaware of your presence as someone could possibly be.");
+		output("\n\nYour Codex indicates that she’s a laquine, though she’s much shorter than any you’ve ever seen.");
 		CodexManager.unlockEntry("Laquine");
 		addButton(0,"Laquine",approachDatLaquineSloot);
 	}
@@ -126,18 +126,18 @@ public function upstairsGeoSurveyBonus():Boolean
 		//PISSED OFF!
 		if(flags["NAYNA_PISSED"] != undefined)
 		{
-			output("\n\nNayna is still here, though she studiously avoids your gaze. If you take a step toward her, she shifts backward. If you approach her, she moves to another part of the deck, as if she had something important to do elsewhere all the while. She wants nothing to do with you.");
+			output("\n\nNayna is still here, though she studiously avoids your gaze. If you take a step toward her, she shifts backward. If you approach her, she moves to another part of the deck, as if she had something important to do elsewhere. She wants nothing to do with you.");
 			addDisabledButton(0,"Nayna","Nayna","You pissed Nayna off, and it seems there's no salvaging the situation.");
 		}
 		//Didn’t take offer
-		else if(flags["NAYNA_REJECTED"] != undefined) output("\n\nNayna is still here, tapping away at an unbroken Codex, doubtless absorbed in the minutia of her research. You could approach her again, but she’s probably still grouchy about your refusal to help her out.");
+		else if(flags["NAYNA_REJECTED"] != undefined) output("\n\nNayna is still here, tapping away at an unbroken data slate, doubtless absorbed in the minutiae of her research. You could approach her again, but she’s probably still grouchy about your refusal to help her out.");
 		//Took her Offer Bonustexts
 		else
 		{
 			//Warm!
-			if(naynaWarm()) output("\n\nNayna seems to enjoying the limited warmth provided by the sun, lounging around in her " + naynaClothes() + " while she pours over climate data from dozens of sources. What a busy little bunny.");
+			if(naynaWarm()) output("\n\nNayna seems to be enjoying the limited warmth provided by the sun, lounging around in her " + naynaClothes() + " while she pores over climate data from dozens of sources. What a busy little bunny.");
 			//Beautiful night
-			else if(naynaViewNice()) output("\n\nNayna is leaning back against one of the computer consoles, looking out at the stars, her Codex forgotten. Looks like even the busy bunny still takes breaks to appreciate the view.");
+			else if(naynaViewNice()) output("\n\nNayna is leaning back against one of the computer consoles, looking out at the stars, her data slate forgotten. Looks like even the busy bunny still takes breaks to appreciate the view.");
 			//Cloudy/Shuttered
 			else output("\n\nNayna does not seem to be bothered by the tower’s sullen atmosphere, wrapped up in her " + naynaClothes() + ". She reminds you of a chubby little bunny in a cozy little burrow, only this bunny is plowing through enough information to make your head spin.");
 		}
@@ -175,14 +175,14 @@ public function approachDatLaquineSloot():void
 	output("\n\n");
 	if(pc.isBimbo()) output("<i>“Oh, duh! My bad!”</i> you giggle.");
 	else output("Again, you look at the metal steps - the <i>noisy</i> metal steps.");
-	output("\n\nBounding over to collect her damaged Codex, the white-furred rabbit-woman lifts her pudgy heiny");
+	output("\n\nBounding over to collect her damaged tablet, the white-furred rabbit-woman lifts her pudgy heiny");
 	if(naynaWarm()) output(", bunny-tail wiggling");
 	output(", completely unaware of how revealing a posture she’s adopted. After two or three hypnotic seconds, she straightens, pouting. <i>“I broke another one. Rats!”</i>");
-	processTime(6);
+	processTime(3);
 	//[Introduce] [Offer To Pay] [Leave]
 	clearMenu();
 	addButton(0,"Introduce",introduceYourselfToNayna,undefined,"Introduce","Introduce yourself.");
-	addButton(1,"Offer to Pay",offerToPayForNaynaCodex,undefined,"Offer to Pay","Offer to pay for the broken codex.");
+	addButton(1,"Offer to Pay",offerToPayForNaynaCodex,undefined,"Offer to Pay","Offer to pay for the broken tablet.");
 	addButton(14,"Leave",leaveNaynaFirstMeeting);
 }
 //Introduce
@@ -191,9 +191,9 @@ public function introduceYourselfToNayna():void
 	clearOutput();
 	showNayna();
 	output("You introduce yourself before she can ramble any more.");
-	output("\n\n<i>“Oh! I’m so sorry. I should’ve introduced myself!”</i> She bounces over, extending her hand in a polite greeting. <i>“I’m Nayna Triverre, climatologist. If you ever need a little help figuring out the cold, I’m your girl... err, bunny. Well, laquine to be precise. Hrmm, let me try again.”</i> Her foot bounces idly as she gathers her thoughts. <i>“If you ever need a little help with the weather, I’m the one for the job.”</i> She brushes her hands against one another as if clearing them of a disdainful topic, then brightens, ears lifting halfway up. <i>“Actually, there’s a way you could help me out, if you’re going to be going out into the white. Interested?”</i>");
+	output("\n\n<i>“Oh! I’m so sorry. I should’ve introduced myself!”</i> She bounces over, extending her hand in a polite greeting. <i>“I’m Nayna Triverre, climatologist. If you ever need a little help figuring out the cold, I’m your girl... err, bunny. Well, laquine to be precise. Hrmm, let me try again.”</i> Her foot bounces idly as she gathers her thoughts. <i>“If you ever need a little help with the weather, I’m the one for the job.”</i> She brushes her hands against one another as if clearing them of a disdainful topic, then brightens, ears lifting halfway up. <i>“Actually, there’s a way you could help me, if you’re going to be out in the white. Interested?”</i>");
 	flags["MET_NAYNA"] = 1;
-	processTime(3);
+	processTime(1);
 	//MET_NAYNA
 	//Same menu with introduce grayed out
 	clearMenu();
@@ -206,11 +206,11 @@ public function offerToPayForNaynaCodex():void
 {
 	clearOutput();
 	showNayna();
-	output("You offer to pay for the damaged Codex.");
+	output("You offer to pay for the damaged tablet.");
 	output("\n\n<i>“Oh no, don’t bother. Please.”</i> ");
 	if(flags["MET_NAYNA"] != undefined) output("Nayna");
-	else output("The diminutive rabbit-girl");
-	output(" runs her hand through her hair, smoothing back one of her ears. <i>“The grant should more than cover the expenses, besides, it was my fault. I’m the one that flipped out, so it follows that I should have to source the necessary expenditures. You just wanted to say hi");
+	else output("The rabbit-girl");
+	output(" runs her hand through her hair, smoothing back one of her ears. <i>“The grant should more than cover the expenses... besides, it was my fault. I’m the one that flipped out, so it follows that I should have to source the necessary expenditures. You just wanted to say hi");
 	if(flags["MET_NAYNA"] == undefined) output(" and introduce yourself");
 	output(", right?”</i>");
 	processTime(1);
@@ -224,10 +224,9 @@ public function leaveNaynaFirstMeeting():void
 {
 	clearOutput();
 	showNayna();
-	output("You try excuse yourself before this clumsy little hare puts you through any more hair-raising incidents.");
+	output("You try to excuse yourself before this clumsy girl puts you through any more hair-raising incidents.");
 	output("\n\n<i>“Wait!”</i> she calls, grabbing you by the wrist. <i>“I didn’t even get your name! If I don’t include all the relevant data when I file the accident report, the department head will have my... well, head.”</i>");
 	output("\n\nDo you give her your name?");
-	processTime(2);
 	clearMenu();
 	addButton(0,"Refuse",refuseToGiveNaynaYourName);
 	addButton(1,"Lie",lieAboutNameToNayna);
@@ -239,7 +238,7 @@ public function refuseToGiveNaynaYourName():void
 {
 	clearOutput();
 	showNayna();
-	output("You pull your hand free and make to leave, but the hare is determined to get an answer out of you. <i>“If you don’t tell me, I’m going to follow you around Uveto until you give me that data point, whether you want to or not! ");
+	output("You pull your hand free and make to leave, but the girl is determined to get an answer out of you. <i>“If you don’t tell me, I’m going to follow you around Uveto until you give me that data point, whether you want to or not! ");
 	if(!naynaWarm()) output("This coat isn’t just for show! I’ve not just some meek little bunny who won’t brave the cold!");
 	else output("I’ve got a coat and everything. It wouldn’t be the first time I’ve gone out in the white!");
 	output("”</i>");
@@ -255,9 +254,9 @@ public function lieAboutNameToNayna():void
 	clearOutput();
 	showNayna();
 	output("Rather than give her the real deal (who wants a lawsuit?), you say the first thing that comes to mind, <i>“Fine, I’m " + pc.mf("Francis","Francine") + " Oppenhelmer if you must know!”</i>");
-	output("\n\n<i>“Thank you,”</i> the scientist replies, <i>“but I’ll need something a little more legitimate to put in this report. You see, you haven’t been on any of the transit manifests... ever, and I do not forget a name - or a face. If you arrived on-moon before me, I’d remember you. So why don’t you tell me who you are, " + pc.mfn("big boy","big girl","hot-cakes") + ", and we can both get on with our lives - me, with a new Codex, and you, lying to whatever dumb hussy is stupid enough to fall for that farce of a name?”</i>");
+	output("\n\n<i>“Thank you,”</i> the scientist replies, <i>“but I’ll need something a little more legitimate to put in this report. You see, you haven’t been on any of the transit manifests... ever, and I do not forget a name - or a face. If you arrived on-moon before me, I’d remember you. So why don’t you tell me who you are, " + pc.mfn("big boy","big girl","hot-cakes") + ", and we can both get on with our lives - me, with a new tablet, and you, lying to whatever dumb hussy is stupid enough to fall for that farce of a name?”</i>");
 	output("\n\nShit. What do you do?");
-	processTime(2);
+	processTime(1);
 	//Gray out lie, proceed, yadda yadda
 	addDisabledButton(1,"Lie","Lie","You already tried that.");
 }
@@ -268,16 +267,15 @@ public function reluctantlyGiveNaynaName():void
 	clearOutput();
 	showNayna();
 	output("<i>“[pc.name] Steele,”</i> you reluctantly admit.");
-	output("\n\nNodding to herself, the long-eared lady smiles apologetically. <i>“Sorry to put you through all that, but I’d be in real hot water if I reported another broken Codex without any sort of corroboration.”</i>");
+	output("\n\nNodding to herself, the long-eared lady smiles apologetically. <i>“Sorry to put you through all that, but I’d be in real hot water if I reported another broken tablet without any sort of corroboration.”</i>");
 	output("\n\nYou sigh.");
 	output("\n\n<i>“By the way, my name’s Nayna. If you ever need data on Uveto’s climate, or any cold weather planet, really. I’m your girl.”</i> She pauses thoughtfully, her ears slowly raising. <i>“Heyyy... do you think you could do me a favor?”</i>");
 	//[MET_NAYNA = 2 - track that you got brow-beat into it.
-	processTime(2);
+	processTime(1);
 	flags["MET_NAYNA"] = 2;
-	processTime(2);
 	clearMenu();
 	addButton(0,"Help",volunteerToHelp,true,"Help","Volunteer to help her out.");
-	addButton(1,"Don't",dontVolunteerToHelpNayna,undefined,"Don't","You don't volunteer to help every random girl you run into.");
+	addButton(1,"Don't",dontVolunteerToHelpNayna,undefined,"Don't","You don't volunteer to help random girls you run into, let alone pushy ones.");
 }
 
 //Volunteer to Help
@@ -317,8 +315,7 @@ public function volunteerToHelp(late:Boolean = false):void
 	output("\n\n");
 	if(!pc.isBimbo()) output("Ahhh, she wants you to go find her missing drones.");
 	else output("You chew on your lip and wonder when she’s going to tell you about the reward. Will it be sex? You hope it’ll be sex.");
-	output("\n\nNayna grabs hold of one of her ears in both hands and nervously kneads the tip. <i>“Do you think you bring me back any you find out there? You’d be doing a service to science... and I’d appreciate it too.”</i>");
-	processTime(3);
+	output("\n\nNayna grabs hold of one of her ears in both hands and nervously kneads the tip. <i>“Do you think you could bring me back any you find out there? You’d be doing a service to science... and I’d appreciate it too.”</i>");
 	flags["NAYNA_REJECTED"] = undefined;
 	//[No Reward?]
 	clearMenu();
@@ -333,7 +330,7 @@ public function noRewardNaynaYouCheapo():void
 	clearOutput();
 	showNayna();
 	output("<i>“Can’t I get some kind of reward?”</i>");
-	output("\n\nNayna blanches. <i>“Uhm, not really. If I can’t afford a few data-gathering ‘bots, how am I supposed to afford a talented, planet-hopping mercenary?”</i> She sighs. <i>“Look, you don’t have to go looking for them, you would be saving my fluffy little tail if you would bring me any you find.”</i>");
+	output("\n\nNayna blanches. <i>“Uhm, not really. If I can’t afford a few data-gathering ‘bots, how am I supposed to afford a talented, planet-hopping mercenary?”</i> She sighs. <i>“Look, you don’t have to go looking for them, but you would be saving my fluffy little tail if you were to bring me any you find.”</i>");
 	output("\n\nYou nod, not sure that you’ll bother, but it’s not worth crushing her dreams at the moment.");
 	clearMenu();
 	addButton(0,"Next",mainGameMenu);
@@ -348,7 +345,7 @@ public function sureNaynaIllHelp():void
 	output("\n\nNayna grabs hold of your hands and bounces up and down in excitement, hopping happily in the way that only a laquine can. <i>“Thankyouthankyou! You won’t regret this. The others involved in the project will be glad to hear that someone’s finally looking out for us academics!”</i>");
 	output("\n\nYou assure her that it’s no problem.");
 	output("\n\n<i>“Okay, well... I better not keep you. Come see me if you find any, okay?”</i>");
-	processTime(3);
+	processTime(2);
 	clearMenu();
 	addButton(0,"Next",mainGameMenu);
 }
@@ -361,7 +358,7 @@ public function dontVolunteerToHelpNayna():void
 	output("<i>“I’ll pass");
 	if(pc.isBimbo()) output(", cutie");
 	output(".”</i>");
-	output("\n\nNayna sighs and rubs the back of her neck. <i>“I shoulda figured. Who’d wanna help the clumsy bunny figure out nonstandard temperature flux in the wildest parts of Uveto? Why would anyone stick their neck out for someone that throws Codices like ninja stars.”</i> She tosses her busted tablet in the trash, wanders over to a storage compartment, presumably where a replacement might be, muttering, <i>“Stupid, stupid, stupid...”</i>");
+	output("\n\nNayna sighs and rubs the back of her neck. <i>“I shoulda figured. Who’d wanna help the clumsy bunny figure out nonstandard temperature flux in the wildest parts of Uveto? Why would anyone stick their neck out for a girl that throws tablet computers away like ninja stars?”</i> She tosses her busted hardware in the trash and wanders over to a storage compartment, presumably for a replacement, muttering, <i>“Stupid, stupid, stupid...”</i>");
 	flags["NAYNA_REJECTED"] = 1;
 	processTime(1);
 	clearMenu();
@@ -375,9 +372,9 @@ public function repeatNaynaApproach(backsies:Boolean = false):void
 	//Didn’t Take Quest
 	if(flags["NAYNA_REJECTED"] != undefined)
 	{
-		output("Nayna’s ear lifts higher and higher as you close the distance with her, swiveling to face you long before her head does the same. <i>“You’re not going to trick me into breaking another Codex, if that’s what you’re here for.”</i>");
+		output("Nayna’s ear lifts higher and higher as you close the distance with her, swiveling to face you long before her head does the same. <i>“You’re not going to trick me into breaking more hardware, if that’s what you’re here for.”</i>");
 		output("\n\n<i>“I-”</i> You start to talk, but she cuts you off before you can get more than a single syllable out.");
-		output("\n\n<i>“I don’t mean to be rude. I don’t, but I’ve got my ass to the wall. I’m over budget and overworked. I’ve got secure twice the results from half the data, and even if I do, the project’s funding may be cut before I can survey the other six planets on my list. If I could find someone to recover my missing drones, I’d have a lot more time to talk.”</i> Nayna’s ears flop down like limp spaghetti noodles.");
+		output("\n\n<i>“I don’t mean to be rude. I don’t, but I’ve got my ass to the wall. I’m over budget and overworked. I’ve got to secure twice the results from half the data, and even if I do, the project’s funding may be cut before I can survey the other six planets on my list. If I could find someone to recover my missing drones, I’d have a lot more time to talk.”</i> Nayna’s ears flop down like limp spaghetti noodles.");
 		processTime(1);
 		//[Help Her Out] [Leave]
 		//Help her out routes to the earlier help her out offer.
@@ -426,24 +423,24 @@ public function appearanceOfNayna():void
 	showNayna();
 	output("Nayna");
 	if(flags["NAYNA_LAST_NAME"] != undefined) output(" Triverre");
-	output(" is..... Well, she’s a rabbit-woman, like most laquine. She’s got big bunny ears that seem content to droop down the back of head and fur that covers every visible part of her body. Her black and white hair is tied back in a sensible ponytail, which when combined with her ears, could easily be mistaken for a trio of ponytails. A triangular black nose tips her short, rabbit-like muzzle, matched by inky little lips that seem ready to smile at a moment’s notice.");
+	output(" is... well, she’s a rabbit-woman, like most laquine. She’s got big bunny ears that seem content to droop down the back of head and fur that covers every visible part of her body. Her black and white hair is tied back in a sensible ponytail, which when combined with her ears, could easily be mistaken for a trio of ponytails. A triangular black nose tips her short, rabbit-like muzzle, matched by inky little lips that seem ready to smile at a moment’s notice.");
 	//Warm!
 	if(naynaWarm())
 	{
-		output("\n\nEven when she’s standing up straight, Nayna is barely 5’2”, well below average for her race, and on top of that, she’s chubby to boot. Her entire body is like a big, squishy stuffed animal, covered in a thick layer of insulating fur that only adds to her short, stacked shape. Her hips and ass are especially plush and inviting, shrink-wrapped in her latex-like unitard. She’s got the kind of ass that you could snuggle up next to and fall asleep - or fuck for hours, bouncing off those quivering cheeks like a trampoline, but her chest is no slouch either. Nayna has the kind of big yet perky breasts that frequently result for artificial enhancement. They still sway and wobble, but they never seem to sag, not even with her complete lack of a bra.");
-		output("\n\nAn unsubtle bulge marrs the space between her legs, or rather, three unsubtle bulges. She’s definitely a hermaphrodite, judging by the two apple-sized distentions of her balls and slight sheath bulge. Right now she doesn’t seem to be very turned on, either that or she’s obtained a magnificent control over her libido.");
+		output("\n\nEven when standing up straight, Nayna is barely 5’2”, well below average for her race, and on top of that, she’s chubby to boot. Her entire body is like a big, squishy stuffed animal, covered in a thick layer of insulating fur that only adds to her short, stacked shape. Her hips and ass are especially plush and inviting, shrink-wrapped in her latex-like unitard. She’s got the kind of ass that you could snuggle up next to and fall asleep - or fuck for hours, bouncing off those quivering cheeks like a trampoline, but her chest is no slouch either. Nayna has the kind of big yet perky breasts that frequently result for artificial enhancement. They still sway and wobble, but they never seem to sag, not even with her complete lack of a bra.");
+		output("\n\nAn unsubtle bulge marrs the space between her legs, or rather, three unsubtle bulges. She’s definitely a hermaphrodite, judging by the two apple-sized distentions of her balls and slight sheath bulge. Right now she doesn’t seem to be very turned on... either that or she’s obtained a magnificent control over her libido.");
 		if(pc.isBimbo()) output(" Your mouth waters just thinking of suckling at it until her cock slides out onto your tongue.");
 	}
 	//Cold
 	else
 	{
-		output("\n\nEven when she’s standing up straight, Nayna is barely 5’2”, well below average for her race, and on top of that, she’s chubby to boot. Her entire body is like a big, squishy stuffed animal, covered in a thick layer of insulating fur that only adds to her short, stacked shape. Her hips and ass are especially plush and inviting. You wish they weren’t wrapped up in so many layers of insulation. She stretches her insulating pants out far enough to indicate that she’s hiding some serious booty in there, and she’s no slouch up top either. Her pink-lined parka is definitely hiding two decent-sized mounds underneath. You wouldn’t notice them otherwise, swaddled as they are in thick fabric.");
+		output("\n\nEven when she’s standing up straight, Nayna is barely 5’2”, well below average for her race, and she’s chubby to boot. Her entire body is like a big, squishy stuffed animal, covered in a thick layer of insulating fur that only adds to her short, stacked shape. Her hips and ass are especially plush and inviting. You wish they weren’t wrapped up in so many layers of insulation. She stretches her insulating pants out far enough to indicate that she’s hiding some serious booty in there, and she’s no slouch up top either. Her pink-lined parka is definitely hiding two decent-sized mounds underneath. You wouldn’t notice them otherwise, swaddled as they are in thick fabric.");
 		output("\n\nYou can’t really make much out between her legs, ");
 		if(knowNayneIsAHerm()) output("but you know damned well she’s a hermaphrodite, even if her cock shares the same short and thick proportions as the rest of her.");
 		else output("but it’s a safe bet that she’s either a female or hermaphrodite, knowing laquines.");
 	}
 	//Merge
-	output("\n\nFlexing powerfully, the lapine woman’s legs are every bit as powerful as the terran creature’s she resembles. She’s strong enough to hop around the room in the throes of gleeful mania when a new idea strikes her - or punt you down the stairs with contemptuous ease, should you raise her ire.");
+	output("\n\nFlexing powerfully, the lapine woman is every bit as strong-legged as the rabbit she resembles. She’s powerful enough to hop around the room in the throes of gleeful mania when a new idea strikes her - or punt you down the stairs with contemptuous ease, should you raise her ire.");
 	if(!naynaWarm()) output(" Those plus-sized snow-boots look like they’d smart.");
 	naynaMainMenu();
 	addDisabledButton(0,"Appearance","Appearance");
@@ -475,7 +472,7 @@ public function talkToNayna(back:Boolean = false):void
 			//Hard
 			else output("\n\n<i>“I’ll be the judge of what’s worth my time, Nayna.”</i> You nod curtly, <i>“but if you insist on being evaluated by your mere physical attributes, I find you to be acceptable company. Now let’s talk.”</i>");
 			//Merge
-			output("\n\n<i>“Oh.”</i> Covering her mouth in embarrassment, the white-haired hare quietly asks, <i>“So... um... what did you want to talk about?”</i>");
+			output("\n\n<i>“Oh.”</i> Covering her mouth in embarrassment, the white-haired girl quietly asks, <i>“So... um... what did you want to talk about?”</i>");
 		}
 		//REPEATS!
 		else
@@ -776,7 +773,7 @@ public function hugNaynaGogogo():void
 	{
 		output("You open your arms wide, but Nayna barrels in well before you’re ready for her, wrapping her arms around your back and planting her hands firmly on your [pc.butt]. Once there, she starts vigorously squeezing and kneading, just like you did to her, oblivious to how hot under the collar it’s making you. Giggling, she asks, <i>“I’m getting pretty good at this, huh?”</i>");
 		output("\n\nYou nod. What else can you do, besides grope-hug her right back. You sink your fingers deep into her rump, massaging her pillowy donk with rapacious delight, reveling in the cuddle-bunny’s oh-so squeezable ass.");
-		if(!naynaWarm()) output(" There may be layers of fur and insulation between your palms and the happy hare, but the her shapeliness is impressive all the same.");
+		if(!naynaWarm()) output(" There may be layers of fur and insulation between your palms and the happy bunny, but the her shapeliness is impressive all the same.");
 	}
 	//Lewder Hug
 	else if(flags["NAYNA_HUG_LEWDNESS"] == 2)
